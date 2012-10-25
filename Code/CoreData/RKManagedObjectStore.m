@@ -297,7 +297,7 @@ static RKManagedObjectStore *defaultObjectStore = nil;
 
 - (NSManagedObjectContext *)newManagedObjectContext
 {
-    NSManagedObjectContext *managedObjectContext = [[NSManagedObjectContext alloc] initWithConcurrencyType:NSMainQueueConcurrencyType];
+    NSManagedObjectContext *managedObjectContext = [[NSManagedObjectContext alloc] initWithConcurrencyType:NSPrivateQueueConcurrencyType];//NSMainQueueConcurrencyType];
     [managedObjectContext setPersistentStoreCoordinator:self.persistentStoreCoordinator];
     [managedObjectContext setUndoManager:nil];
     [managedObjectContext setMergePolicy:NSMergeByPropertyStoreTrumpMergePolicy];

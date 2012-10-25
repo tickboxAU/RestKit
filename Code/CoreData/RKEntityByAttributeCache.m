@@ -252,17 +252,19 @@
     NSMutableSet *objectsToAdd = [NSMutableSet setWithSet:insertedObjects];
     [objectsToAdd unionSet:updatedObjects];
 
-    for (NSManagedObject *object in objectsToAdd) {
-        if ([object.entity isEqual:self.entity]) {
-            [self addObject:object];
+    [self.managedObjectContext performBlockAndWait:^{
+        for (NSManagedObject *object in objectsToAdd) {
+            if ([object.entity isEqual:self.entity]) {
+                [self addObject:object];
+            }
         }
-    }
-
-    for (NSManagedObject *object in deletedObjects) {
-        if ([object.entity isEqual:self.entity]) {
-            [self removeObject:object];
+        
+        for (NSManagedObject *object in deletedObjects) {
+            if ([object.entity isEqual:self.entity]) {
+                [self removeObject:object];
+            }
         }
-    }
+    }];
 }
 
 - (void)managedObjectContextDidSave:(NSNotification *)notification
